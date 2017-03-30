@@ -43,3 +43,28 @@
                             on duplicate key update
                             task_end_time = current_timestamp,
                             task_status = 'failed';
+
+
+
+
+-- workflow_scheduler
+
+        -- work flow setup, setup model_id checkpoint_start_dt,schedule_period_type,schedule_interval (has to setup all custom jobs other than daily jobs)
+                insert into metrics.workflow_scheduler (model_id,checkpoint_start_dt,run_status,schedule_period_type,schedule_interval)
+                        values(modelId,checkpointStartDt,'SETUP_VALUES_ONLY',periodType,scheduleInterval);
+        -- get new process date and update init file
+                -- get checkpoint_start_dt + schedule_interval + schedule_type
+        -- work flow start (update runId,processDt,run_status)
+                insert into metrics.workflow_scheduler (model_id,run_id,checkpointStartDt,current_process_dt,no_of_tasks_completed,no_of_tasks_failed,no_of_tasks_running,run_status,schedule_period_type,schedule_interval)
+                        values(modelId,runId,processDt,processDt,0,0,0,'RUNNING','DAILY',1)
+                        on duplicate key update
+                        run_id = runId,
+                        current_processing_dt = processDt,
+                        no_of_tasks_completed = 0,
+                        no_of_tasks_failed = 0,
+                        no_of_tasks_runnning = 0,
+                        run_status='RUNNING';
+
+        -- task start (after updating task_status table , update no of tasks: completed , failed , running from task_table)
+        -- task update (after updating task_status table , update no of tasks: completed , failed , running from task_table)
+        -- work flow complete ( on complete update checkpoint_start_dt)

@@ -1,3 +1,5 @@
+-- mysql -u root -p < createtablestatment.sql
+
 USE metrics;
 
 DROP table IF EXISTS runid_generator;
@@ -37,4 +39,19 @@ CREATE TABLE `task_status` (
    KEY `task_status` (`task_status`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
+DROP TABLE IF EXISTS workflow_scheduler;
+CREATE TABLE `workflow_scheduler`(
+   `model_id` varchar(50) NOT NULL,
+   `run_id` varchar(50) DEFAULT NULL, -- current process running id for reference(run_id), gets updated for every run
+   `checkpoint_start_dt` date DEFAULT NULL, -- checkpoint where to start from, updates after every workflow is completed
+   `current_process_dt` date DEFAULT NULL, -- current process date
+   `no_of_tasks_completed` smallint(10) DEFAULT NULL, -- no of tasks completed
+   `no_of_tasks_failed` smallint(10) DEFAULT NULL, -- no of tasks failed
+   `no_of_tasks_running` smallint(10) DEFAULT NULL, -- no of task running helps during restart
+   `run_status` varchar(50) DEFAULT NULL, -- status of workflow
+   `schedule_period_type` varchar(50) DEFAULT NULL, -- days months or weeks
+   `schedule_interval` smallint(4) DEFAULT NULL, -- no of days or months or weeks to be processed
+   PRIMARY KEY (`model_id`),
+   KEY `model_id` (`model_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
