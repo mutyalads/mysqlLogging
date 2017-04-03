@@ -1,4 +1,4 @@
-package com.rt.workAutomation.db
+package com.rt.workautomation.db
 
 /**
   * Created by mutyalart on 3/27/17.
@@ -86,6 +86,14 @@ object DSL{
     }
     executeSQLQuery(query)
   }
+
+
+    def updatedatabaseWithCheckPoint(): Unit = {
+
+    }
+    def updateInitFile(): Unit ={
+
+    }
 
 }
 

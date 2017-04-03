@@ -1,4 +1,4 @@
-package com.rt.workAutomation.Util
+package com.rt.workautomation.util
 
 import java.io.FileInputStream
 import java.util.Properties

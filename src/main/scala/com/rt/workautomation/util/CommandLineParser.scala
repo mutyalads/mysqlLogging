@@ -1,4 +1,4 @@
-package com.rt.workAutomation.Util
+package com.rt.workautomation.util
 
 import org.slf4j.LoggerFactory
 
